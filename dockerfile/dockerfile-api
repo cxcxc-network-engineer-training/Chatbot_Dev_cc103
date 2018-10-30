@@ -1,4 +1,4 @@
-#ubuntu:latest with flask
+#jupyter/base-notebook  with flask
 FROM jupyter/base-notebook
 
 #update pip
