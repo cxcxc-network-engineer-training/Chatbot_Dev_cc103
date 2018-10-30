@@ -33,4 +33,4 @@ services:
       - db
     volumes:
       - ./code:/home/jovyan/work/
-    command:  start-notebook.sh --NotebookApp.token=''  
+    command:  start-notebook.sh --NotebookApp.token=''   
