@@ -2,9 +2,7 @@ version: '3'
 services:
 
   db:
-    build:
-      context: ./dockerfile
-      dockerfile: dockerfile-mysql
+    image: mysql:5.7
     container_name: chatbot_db
     restart: always
     ports:
@@ -18,7 +16,7 @@ services:
   api:
     build:
       context: ./dockerfile
-      dockerfile: dockerfile-api
+      dockerfile: dockerfile-api2
     container_name: chatbot_api
     restart: always
     user: root
