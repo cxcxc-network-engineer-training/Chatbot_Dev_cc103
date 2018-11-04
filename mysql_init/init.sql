@@ -13,7 +13,7 @@ create table users (
 
 create table menus (
 	menu_id varchar(255),
-	menu_content longtext,
+	menu_content JSON,
 	PRIMARY KEY (menu_id)
 	)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
