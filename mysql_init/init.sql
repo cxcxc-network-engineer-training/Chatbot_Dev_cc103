@@ -1,5 +1,6 @@
 create database chatbot_db;
 use chatbot_db;
+ALTER DATABASE chatbot_db CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 create table users (
     user_open_id varchar(255),
@@ -28,14 +29,14 @@ create table assoc_sa_questions (
 	true_answer_decribe_content TEXT,
 	external_link VARCHAR(255),
 	PRIMARY KEY (question_id)
-	)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+	)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-LOAD DATA LOCAL INFILE  '/docker-entrypoint-initdb.d/SA.csv'
+LOAD DATA LOCAL INFILE  '/docker-entrypoint-initdb.d/SA'
 INTO TABLE `chatbot_db`.`assoc_sa_questions`
 CHARACTER SET UTF8
-FIELDS TERMINATED BY ',' 
+FIELDS TERMINATED BY '\t' 
 ENCLOSED BY '"'
-LINES TERMINATED BY '\n'
+LINES TERMINATED BY '\r\n'
 IGNORE 1 ROWS;
 
 create table assoc_dev_questions (
@@ -51,14 +52,13 @@ create table assoc_dev_questions (
 	PRIMARY KEY (question_id)
 	)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-LOAD DATA LOCAL INFILE  '/docker-entrypoint-initdb.d/Develope.csv'
+LOAD DATA LOCAL INFILE  '/docker-entrypoint-initdb.d/Develope'
 INTO TABLE `chatbot_db`.`assoc_dev_questions`
 CHARACTER SET UTF8
-FIELDS TERMINATED BY ',' 
+FIELDS TERMINATED BY '\t' 
 ENCLOSED BY '"'
-LINES TERMINATED BY '\n'
+LINES TERMINATED BY '\r\n'
 IGNORE 1 ROWS;
-
 
 
 create table assoc_sys_questions (
@@ -74,13 +74,14 @@ create table assoc_sys_questions (
 	PRIMARY KEY (question_id)
 	)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-LOAD DATA LOCAL INFILE  '/docker-entrypoint-initdb.d/SYS.csv'
-INTO TABLE `chatbot_db`.`assoc_sys_questions`
-CHARACTER SET UTF8
-FIELDS TERMINATED BY ',' 
-ENCLOSED BY '"'
-LINES TERMINATED BY '\n'
-IGNORE 1 ROWS;
+#LOAD DATA LOCAL INFILE  '/docker-entrypoint-initdb.d/SYS.csv'
+#INTO TABLE `chatbot_db`.`assoc_sys_questions`
+#CHARACTER SET UTF8
+#FIELDS TERMINATED BY ',' 
+#ENCLOSED BY '"'
+#LINES TERMINATED BY '\n'
+#IGNORE 1 ROWS;
+
 
 create user 'read_only_user'@'%' IDENTIFIED BY 'iii';
 GRANT SELECT ON chatbot_db.users TO 'read_only_user'@'%' IDENTIFIED BY 'iii';
