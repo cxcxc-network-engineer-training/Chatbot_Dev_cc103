@@ -1,5 +1,25 @@
-11-11 10:01 werkzeug     INFO      * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
-11-11 10:01 werkzeug     INFO     172.18.0.5 - - [11/Nov/2018 10:01:48] "POST /user HTTP/1.1" 200 -
-11-11 10:01 werkzeug     INFO     172.18.0.5 - - [11/Nov/2018 10:01:57] "GET /question/sa?question_id=1 HTTP/1.1" 200 -
-11-11 10:01 werkzeug     INFO     172.18.0.5 - - [11/Nov/2018 10:01:59] "GET /question/sa?question_id=2 HTTP/1.1" 200 -
-11-11 10:02 werkzeug     INFO     172.18.0.5 - - [11/Nov/2018 10:02:07] "GET /question/sysops?question_id=1 HTTP/1.1" 200 -
+11-13 06:03 werkzeug     INFO      * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+11-13 06:10 werkzeug     INFO     172.23.0.5 - - [13/Nov/2018 06:10:27] "POST /menu HTTP/1.1" 200 -
+11-13 06:11 werkzeug     INFO     172.23.0.5 - - [13/Nov/2018 06:11:06] "POST /user HTTP/1.1" 200 -
+11-13 06:12 werkzeug     INFO     172.23.0.5 - - [13/Nov/2018 06:12:31] "POST /user HTTP/1.1" 200 -
+11-13 06:13 werkzeug     INFO     172.23.0.5 - - [13/Nov/2018 06:13:58] "POST /web_user_info HTTP/1.1" 200 -
+11-13 06:20 werkzeug     INFO     172.23.0.5 - - [13/Nov/2018 06:20:32] "POST /user HTTP/1.1" 200 -
+11-13 06:21 werkzeug     INFO     172.23.0.5 - - [13/Nov/2018 06:21:16] "POST /web_user_info HTTP/1.1" 200 -
+11-13 06:21 werkzeug     INFO     172.23.0.5 - - [13/Nov/2018 06:21:20] "GET /user_back HTTP/1.1" 200 -
+11-13 06:21 werkzeug     INFO     172.23.0.5 - - [13/Nov/2018 06:21:39] "POST /manager_page_delete HTTP/1.1" 200 -
+11-13 06:21 werkzeug     INFO     172.23.0.5 - - [13/Nov/2018 06:21:39] "GET /user_back HTTP/1.1" 200 -
+11-13 06:21 werkzeug     INFO     172.23.0.5 - - [13/Nov/2018 06:21:47] "POST /manager_page_delete HTTP/1.1" 200 -
+11-13 06:21 werkzeug     INFO     172.23.0.5 - - [13/Nov/2018 06:21:47] "GET /user_back HTTP/1.1" 200 -
+11-13 06:23 werkzeug     INFO     172.23.0.5 - - [13/Nov/2018 06:23:45] "GET /question/sysops?question_id=1 HTTP/1.1" 200 -
+11-13 06:23 werkzeug     INFO     172.23.0.5 - - [13/Nov/2018 06:23:50] "GET /question/sysops?question_id=2 HTTP/1.1" 200 -
+11-13 06:23 werkzeug     INFO     172.23.0.5 - - [13/Nov/2018 06:23:53] "GET /question/devlop?question_id=1 HTTP/1.1" 200 -
+11-13 06:23 werkzeug     INFO     172.23.0.5 - - [13/Nov/2018 06:23:54] "GET /question/sa?question_id=1 HTTP/1.1" 200 -
+11-13 06:23 werkzeug     INFO     172.23.0.5 - - [13/Nov/2018 06:23:55] "GET /question/sysops?question_id=3 HTTP/1.1" 200 -
+11-13 06:24 werkzeug     INFO     172.23.0.5 - - [13/Nov/2018 06:24:00] "GET /question/devlop?question_id=2 HTTP/1.1" 200 -
+11-13 06:24 werkzeug     INFO     172.23.0.5 - - [13/Nov/2018 06:24:05] "GET /question/sa?question_id=2 HTTP/1.1" 200 -
+11-13 06:24 werkzeug     INFO     172.23.0.5 - - [13/Nov/2018 06:24:05] "GET /question/devlop?question_id=3 HTTP/1.1" 200 -
+11-13 06:24 werkzeug     INFO     172.23.0.5 - - [13/Nov/2018 06:24:06] "GET /question/sysops?question_id=4 HTTP/1.1" 200 -
+11-13 06:24 werkzeug     INFO     172.23.0.5 - - [13/Nov/2018 06:24:07] "GET /question/devlop?question_id=4 HTTP/1.1" 200 -
+11-13 06:24 werkzeug     INFO     172.23.0.5 - - [13/Nov/2018 06:24:07] "GET /question/sa?question_id=3 HTTP/1.1" 200 -
+11-13 06:24 werkzeug     INFO     172.23.0.5 - - [13/Nov/2018 06:24:46] "GET /question/devlop?question_id=5 HTTP/1.1" 200 -
+11-13 06:24 werkzeug     INFO     172.23.0.5 - - [13/Nov/2018 06:24:52] "GET /question/devlop?question_id=5 HTTP/1.1" 200 -

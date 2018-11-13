@@ -31,13 +31,13 @@ create table assoc_sa_questions (
 	PRIMARY KEY (question_id)
 	)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-LOAD DATA LOCAL INFILE  '/docker-entrypoint-initdb.d/SA'
-INTO TABLE `chatbot_db`.`assoc_sa_questions`
-CHARACTER SET UTF8
-FIELDS TERMINATED BY '\t' 
-ENCLOSED BY '"'
-LINES TERMINATED BY '\r\n'
-IGNORE 1 ROWS;
+#LOAD DATA LOCAL INFILE  '/docker-entrypoint-initdb.d/SA'
+#INTO TABLE `chatbot_db`.`assoc_sa_questions`
+#CHARACTER SET UTF8
+#FIELDS TERMINATED BY '\t' 
+#ENCLOSED BY '"'
+#LINES TERMINATED BY '\r\n'
+#IGNORE 1 ROWS;
 
 create table assoc_dev_questions (
 	question_id INTEGER(255),
@@ -52,13 +52,13 @@ create table assoc_dev_questions (
 	PRIMARY KEY (question_id)
 	)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-LOAD DATA LOCAL INFILE  '/docker-entrypoint-initdb.d/Develope'
-INTO TABLE `chatbot_db`.`assoc_dev_questions`
-CHARACTER SET UTF8
-FIELDS TERMINATED BY '\t' 
-ENCLOSED BY '"'
-LINES TERMINATED BY '\r\n'
-IGNORE 1 ROWS;
+#LOAD DATA LOCAL INFILE  '/docker-entrypoint-initdb.d/Develope'
+#INTO TABLE `chatbot_db`.`assoc_dev_questions`
+#CHARACTER SET UTF8
+#FIELDS TERMINATED BY '\t' 
+#ENCLOSED BY '"'
+#LINES TERMINATED BY '\r\n'
+#IGNORE 1 ROWS;
 
 
 create table assoc_sys_questions (
@@ -74,14 +74,30 @@ create table assoc_sys_questions (
 	PRIMARY KEY (question_id)
 	)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-#LOAD DATA LOCAL INFILE  '/docker-entrypoint-initdb.d/SYS.csv'
+#LOAD DATA LOCAL INFILE  '/docker-entrypoint-initdb.d/SYS'
 #INTO TABLE `chatbot_db`.`assoc_sys_questions`
 #CHARACTER SET UTF8
-#FIELDS TERMINATED BY ',' 
+#FIELDS TERMINATED BY '\t' 
 #ENCLOSED BY '"'
-#LINES TERMINATED BY '\n'
+#LINES TERMINATED BY '\r\n'
 #IGNORE 1 ROWS;
 
+create table user_back (
+    user_id varchar(50),
+    user_name varchar(255),
+    user_phone varchar(255),
+    user_email varchar(255),
+    user_context TEXT,
+    user_bool varchar(50),
+    user_data varchar(50),
+    PRIMARY KEY (user_id)
+	)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+create table login (
+    username varchar(50),
+    password varchar(50),
+    PRIMARY KEY (username)
+	)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 create user 'read_only_user'@'%' IDENTIFIED BY 'iii';
 GRANT SELECT ON chatbot_db.users TO 'read_only_user'@'%' IDENTIFIED BY 'iii';
