@@ -5,7 +5,7 @@
 
 
 #製作flask環境
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 import datetime
 import pymysql
 
@@ -15,6 +15,8 @@ time.sleep( 100 )
 
 #呼叫出Flask
 app = Flask(__name__)
+#
+app.config['SECRET_KEY'] = str(datetime.datetime)
 
 
 #建立與mysql的連線
@@ -28,8 +30,8 @@ cur = conn.cursor()
 
 
 #接口功能：對資料庫新增使用者資料
-#接口位置：/users，使用post的http method
-@app.route('/users',methods=['POST'])
+#接口位置：/user，使用post的http method
+@app.route('/user',methods=['POST'])
 def add_user():
     #抓跑function時的時間
     time = datetime.datetime.utcnow().strftime("%Y%m%d%H%M")
@@ -76,7 +78,7 @@ def add_user():
         #將資料送進資料庫中
         conn.commit()
         #回傳一個正確的描述
-        result =  { "status_describe":"success add user" }
+        result =  { "status_describe":"success add user:{}".format(a['user_open_id'])}
         return jsonify(result)
     
     
@@ -91,8 +93,8 @@ def add_user():
 
 
 #接口功能：檢視指定使用者資訊
-#接口位置：/users/<userid>，運用了url parameter，使用get的http method
-@app.route('/users/<userid>',methods=['GET'])
+#接口位置：/user/<userid>，運用了url parameter，使用get的http method
+@app.route('/user/<userid>',methods=['GET'])
 #特別注意這邊有打userid，url parameter就是這樣使用
 def read_user(userid):
     #找出資料庫符合userid的資料
@@ -152,8 +154,7 @@ def read_users():
                 "user_register_menu" : i[5]
             }
             answer.append(result)
-    
-        
+            
     #轉成json格式
     return jsonify(answer)
 
@@ -162,8 +163,8 @@ def read_users():
 
 
 #接口功能：更新指定使用者資訊
-#接口位置：/users/<userid>，使用put的http method
-@app.route('/users/<userid>',methods=['PUT'])
+#接口位置：/user/<userid>，使用put的http method
+@app.route('/user/<userid>',methods=['PUT'])
 #由於使用url parameter 所以有擷取userid
 def update_user(userid):
     #取出傳過來的資料
@@ -195,7 +196,8 @@ def update_user(userid):
         cur.execute(insertsql)
         conn.commit()
         #回傳一個正確的描述
-        result =  { "status_describe":"success update user" }
+        #userid也加入result
+        result =  { "status_describe":"success update user:{}".format(userid) }
         return jsonify(result)
     
     
@@ -207,6 +209,42 @@ def update_user(userid):
 
 
 # In[6]:
+
+
+#接口功能：刪除user資訊
+#接口位置：/user/<userid>，使用delete的http method
+@app.route('/user/<userid>',methods=['DELETE'])
+def delete_user(userid):
+    #方便錯誤排除
+    error = None
+    
+    #看看資料庫內是否有重複的menu_id
+    cur.execute('SELECT user_open_id FROM chatbot_db.users WHERE user_open_id = ("%s")' % (userid))
+    test = cur.fetchone()
+    #沒有重複的話
+    if not test:
+        error = 'Please enter the right userid.'
+        
+    #沒有錯誤的話，將user從資料庫刪除
+    if error is None:
+        #刪除user
+        cur.execute(
+            'DELETE FROM chatbot_db.users WHERE user_open_id=("%s")' % (userid)
+            )
+        conn.commit()
+        #回傳一個正確的描述
+        #menuid也加入result
+        result =  { "status_describe":"success delete user_open_id:{}".format(userid) }
+        return jsonify(result)
+
+    #製作一個錯誤的描述
+    result = {"status_describe":"{}".format(error)}
+    
+    #回傳轉檔成json格式的錯誤描述
+    return jsonify(result)  
+
+
+# In[7]:
 
 
 #接口功能：新增menu資料
@@ -255,7 +293,74 @@ def add_menu():
     
 
 
-# In[7]:
+# In[8]:
+
+
+#接口功能：檢視所有menus資訊
+#接口位置：/menus，使用get的http method
+@app.route('/menus',methods=['GET'])
+def read_menus():
+    #找出資料庫內的所有menu資料
+    cur.execute(
+        'SELECT * FROM chatbot_db.menus'
+        )
+    #由於是多筆，使用fetchall
+    menus = cur.fetchall()
+    #假如一個menus都沒
+    if not menus:
+        answer = {
+          "status_describe":"query string is incompatible"
+        }
+    else:
+        #裝成矩陣格式
+        answer = []
+        for i in menus:
+            result = {
+                "menu_id":i[0],
+                "menu_content":i[1],
+            }
+            answer.append(result)
+    #轉成json格式
+    return jsonify(answer)
+
+
+# In[9]:
+
+
+#接口功能：刪除menu資訊
+#接口位置：/menu/<menuid>，使用delete的http method
+@app.route('/menu/<menuid>',methods=['DELETE'])
+def delete_menu(menuid):
+    #方便錯誤排除
+    error = None
+    
+    #看看資料庫內是否有重複的menu_id
+    cur.execute('SELECT menu_id FROM chatbot_db.menus WHERE menu_id = ("%s")' % (menuid))
+    test = cur.fetchone()
+    #沒有重複的話
+    if not test:
+        error = 'Please enter the right menuid.'
+        
+    #沒有錯誤的話，將menu從資料庫刪除
+    if error is None:
+        #刪除menu
+        cur.execute(
+            'DELETE FROM chatbot_db.menus WHERE menu_id=("%s")' % (menuid)
+            )
+        conn.commit()
+        #回傳一個正確的描述
+        #menuid也加入result
+        result =  { "status_describe":"success delete menu_id:{}".format(menuid) }
+        return jsonify(result)
+
+    #製作一個錯誤的描述
+    result = {"status_describe":"{}".format(error)}
+    
+    #回傳轉檔成json格式的錯誤描述
+    return jsonify(result)  
+
+
+# In[10]:
 
 
 #唯一的變數是擷取的SQL table不同
@@ -299,7 +404,7 @@ def test(table_type):
     return jsonify(result)
 
 
-# In[8]:
+# In[11]:
 
 
 #接口功能：檢視question sa的資料
@@ -309,6 +414,7 @@ def test_sa():
     return test('assoc_sa_questions')
 
 @app.route('/question/sysops',methods=['GET'])
+
 def test_sys():
     return test('assoc_sys_questions')
 
@@ -317,7 +423,40 @@ def test_dev():
     return test('assoc_dev_questions')
 
 
-# In[9]:
+# In[12]:
+
+
+@app.route('/web_user_info',methods=['POST'])
+def add_web_user_info():
+    #抓跑function時的時間
+    time = datetime.datetime.utcnow().strftime("%Y%m%d%H%M")
+    #將傳過來的json檔擷取出來
+    a = request.get_json()
+    #方便錯誤排除
+    cur.execute('SELECT MAX(user_id) FROM chatbot_db.user_back ' )
+    tmp = cur.fetchone()
+    if tmp[0] is None :
+        user_id = 1
+    else :
+        user_id = tmp[0] +1
+    
+    insertsql=("INSERT INTO chatbot_db.user_back VALUES ( %s,%s,%s,%s ,%s,%s,%s)")
+    val = ( str(user_id) ,
+                a['user_name'],
+                a['user_phone'],
+                a['user_email'],
+                a['user_context'],
+                a['user_bool'],
+                time)
+    cur.execute(insertsql , val)
+    #將資料送進資料庫中
+    conn.commit()
+    result =  { "status_describe":"success add feedback" }
+    
+    return jsonify(result)
+
+
+# In[13]:
 
 
 import logging
@@ -339,6 +478,61 @@ formatter = logging.Formatter('%(name)-12s: %(levelname)-8s %(message)s')
 console.setFormatter(formatter)
 # 加入 hander 到 root logger
 logging.getLogger('').addHandler(console)
+
+
+# In[14]:
+
+
+#接口功能：檢視所有使用者資訊
+#接口位置：/users，使用get的http method
+@app.route('/user_back',methods=['GET'])
+def read_user_back():
+    #找出資料庫內的所有user資料
+    cur.execute(
+        'SELECT * FROM chatbot_db.user_back'
+        )
+    #由於是多筆，使用fetchall
+    user = cur.fetchall()
+    #假如一個user都沒
+    if not user:
+        answer = {
+          "status_describe":"query string is incompatible"
+        }
+    else:
+        #裝成矩陣格式
+        answer = []
+        for i in user:
+            result = {
+                "user_id"      : i[0],
+                "user_name"    : i[1],
+                "user_phone"   : i[2],
+                "user_email"   : i[3],
+                "user_context" : i[4],
+                "user_bool"    : i[5],
+                "user_data"    : i[6]
+            }
+            answer.append(result)
+       
+    #轉成json格式
+    return jsonify(answer)
+
+
+# In[15]:
+
+
+@app.route('/manager_page_delete',methods=['post'])
+def user_back_delete():
+    #將傳過來的json檔擷取出來
+    a = request.get_json()
+
+    for i in a :
+        cur.execute('DELETE FROM chatbot_db.user_back WHERE user_id = {}'.format(i) )
+
+        conn.commit()
+
+    result =  { "status_describe":"success delete menu" }
+    
+    return jsonify(result)
 
 
 # In[ ]:
