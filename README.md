@@ -17,7 +17,7 @@ http://本機ip:8880     # 透過瀏覽器訪問 jupyter
    
    code.ipynb # 開發組撰寫的程式碼
 
-   code.py    # 方便 devops 的開啟用成 py 檔
+   code.py       # 方便 devops 的開啟用成 py 檔
 
    my.log     # 裝 API 的 log
 
