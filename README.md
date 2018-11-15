@@ -5,8 +5,6 @@ git clone https://github.com/iii-cutting-edge-tech-lab/Chatbot_Dev_cc103.git
 
 cd Chatbot_Dev_cc103   # 切換至 Chatbot_Dev_cc103 目錄下
 
-docker checkout dev1   # 切換至 dev1 分支
-
 docker-compose up -d   # 啟動 Dev 開發環境 (只開啟 jupyter、sql 的 container)
 
 http://本機ip:8880     # 透過瀏覽器訪問 jupyter
