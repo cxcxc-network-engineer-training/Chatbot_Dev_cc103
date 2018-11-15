@@ -1,38 +1,42 @@
-# Chatbot_Dev_cc103
-先
+# Chatbot_Dev_cc103 (dev1 分支)
+
+# 首先將 Chatbot_Dev_cc103 repo 複製到本地端
 git clone https://github.com/iii-cutting-edge-tech-lab/Chatbot_Dev_cc103.git
 
-cd Chatbot_Dev_cc103
+cd Chatbot_Dev_cc103   # 切換至 Chatbot_Dev_cc103 目錄下
 
-開啟環境流程(只供開發使用，只開啟jupyter跟mysql的container)
+docker checkout dev1   # 切換至 dev1 分支
 
-docker-compose up -d
+docker-compose up -d   # 啟動 Dev 開發環境 (只開啟 jupyter、sql 的 container)
 
-透過瀏覽器訪問jupyter
-http://本機ip:8880
+http://本機ip:8880     # 透過瀏覽器訪問 jupyter
 
-程式碼都放在code內，可以用Jupyter編輯
+# 以下是 Chatbot_Line_cc103 repo 的資料夾結構
 
-以下是repo的資料夾結構
+1. code/
+   
+   code.ipynb # 開發組撰寫的程式碼
 
-code/
+   code.py    # 方便 devops 的開啟用成 py 檔
 
-#開發組的程式碼
-code.ipynb
-#方便devops的開啟用成py檔
-code.py
-#裝API的log
-my.log 
+   my.log     # 裝 API 的 log
 
-mysql_init/
+2. dockerfile/
 
-#devops組製作的初始化資料庫
-init.sql
-xxxxxxx.csv # 內裝考題
+   dockerfile-jupyter2 # 製作 api container 要的 image
 
-mysql_data/
+3. mysql_init/  # 內放資料庫初始化檔
 
-#裡面裝資料庫內的data
-...
+   init.sql
 
-README.md #說明檔
+   xxxxxxx.csv  # 內裝考題
+
+4. .gitignore    # 一個用來告知 Git 需要忽略哪些檔案不上傳的設定檔
+
+5. README.md    # 一個說明檔
+
+6. docker-compose.yml  # 建構所需 container 的檔案
+
+7. gitpush.sh   # 一個將本地端檔案推入 github 的腳本
+
+8. gitsubmodule.sh  # 一個有關 submodule 指令的腳本
